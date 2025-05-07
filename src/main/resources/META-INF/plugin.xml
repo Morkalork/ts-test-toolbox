@@ -1,12 +1,18 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>IntelliJ Platform Plugin Template</name>
-    <vendor>JetBrains</vendor>
+    <id>org.morkalork.add-js-test</id>
+    <name>Add JS Test</name>
+    <vendor email="magnus@consultant.com" url="https://morkalork.dev">JetBrains</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <actions>
+        <action id="AddJsTest" class="com.morkalork.CreateTestFileAction" text="JS/TS Test File"
+                icon="icons/addJsTestIcon.svg"
+                description="Allows for you to right-click on a js/ts-file and create a test file for that file">
+            <add-to-group group-id="NewGroup" anchor="last"  />
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="org.jetbrains.plugins.template.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>

@@ -132,6 +132,16 @@ tasks {
     publishPlugin {
         dependsOn(patchChangelog)
     }
+
+    processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+sourceSets {
+    main {
+        resources.srcDir("src/main/resources")
+    }
 }
 
 intellijPlatformTesting {
