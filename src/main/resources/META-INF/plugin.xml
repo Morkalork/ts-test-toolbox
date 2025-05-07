@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>org.morkalork.add-js-test</id>
     <name>Add JS Test</name>
-    <vendor email="magnus@consultant.com" url="https://morkalork.dev">JetBrains</vendor>
+    <vendor email="magnus@consultant.com" url="https://morkalork.dev">morkalork</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -15,7 +15,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="org.jetbrains.plugins.template.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="org.jetbrains.plugins.template.startup.MyProjectActivity" />
+        <toolWindow factoryClass="com.github.morkalork.addjstestjetbrains.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <postStartupActivity implementation="com.github.morkalork.addjstestjetbrains.startup.MyProjectActivity" />
     </extensions>
 </idea-plugin>
