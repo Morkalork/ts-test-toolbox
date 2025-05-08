@@ -24,11 +24,24 @@ class CreateTestFileAction : AnAction() {
         val virtualFile: VirtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 
         val fileName = virtualFile.name
+
+        if (!fileName.endsWith(".ts") && !fileName.endsWith(".js")) {
+            return
+        }
+
+        if (fileName.contains(".test.") || fileName.contains(".spec.")) {
+            Messages.showInfoMessage(project, "Why would you add a test file for a test file!?", "Nothing to Do")
+            return
+        }
+
         val fileExtension = virtualFile.extension ?: return
-        if (fileExtension !in listOf("ts", "js")) return
+        if (fileExtension !in listOf("ts", "js")) {
+            return;
+        }
 
         val baseName = fileName.removeSuffix(".$fileExtension")
         val testFileName = "$baseName.test.$fileExtension"
+
         val parent = virtualFile.parent ?: return
 
         val psiManager = PsiManager.getInstance(project)
@@ -63,6 +76,16 @@ class CreateTestFileAction : AnAction() {
         }
 
         val testFileContent = listOf(testUtilImport, importLine, "", testBlocks).joinToString("\n")
+
+        val existingTestFile = parent.findChild(testFileName)
+        if (existingTestFile != null) {
+            Messages.showInfoMessage(
+                project,
+                "A test file already exists:\n${existingTestFile.path}",
+                "Add JS Test"
+            )
+            return
+        }
 
         WriteCommandAction.runWriteCommandAction(project) {
             val factory = PsiFileFactory.getInstance(project)
