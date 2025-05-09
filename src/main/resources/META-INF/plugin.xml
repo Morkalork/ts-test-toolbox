@@ -4,6 +4,10 @@
     <name>Add JS Test</name>
     <vendor email="magnus@consultant.com" url="https://morkalork.dev">morkalork</vendor>
 
+    <description>
+        This plugin allows for a user to right-click on a JS/TS-file and add a test for that file, with an auto generated description based on the exports of that file.
+    </description>
+
     <depends>com.intellij.modules.platform</depends>
 
     <actions>
@@ -16,7 +20,7 @@ Detects exports and generates test stubs using jest or vitest.">
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.morkalork.addjstestjetbrains.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.morkalork.addjstestjetbrains.startup.MyProjectActivity" />
+        <toolWindow factoryClass="com.github.morkalork.addjstest.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <postStartupActivity implementation="com.github.morkalork.addjstest.startup.MyProjectActivity" />
     </extensions>
 </idea-plugin>

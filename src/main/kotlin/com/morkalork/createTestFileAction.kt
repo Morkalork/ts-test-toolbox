@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets
 class CreateTestFileAction : AnAction() {
 
     override fun getActionUpdateThread(): ActionUpdateThread {
-        return ActionUpdateThread.EDT
+        return ActionUpdateThread.BGT
     }
 
     override fun actionPerformed(e: AnActionEvent) {
@@ -48,10 +48,18 @@ class CreateTestFileAction : AnAction() {
         val psiDirectory = psiManager.findDirectory(parent) ?: return
 
         val fileText = String(virtualFile.contentsToByteArray(), StandardCharsets.UTF_8)
-        val exportRegex = Regex("""export\s+(?:const|function)\s+(\w+)""")
-        val exports = exportRegex.findAll(fileText).map { it.groupValues[1] }.toList()
+        val namedExportRegex = Regex("""export\s+(?:const|function)\s+(\w+)""")
+        val defaultExportRegex = Regex("""export\s+default\s+(\w+)""")
 
-        if (exports.isEmpty()) {
+        val namedExports = namedExportRegex.findAll(fileText).map { it.groupValues[1] }
+        val defaultExport = defaultExportRegex.find(fileText)?.groupValues?.get(1)
+
+        val allExports = namedExports.toMutableList()
+        if (defaultExport != null && !allExports.contains(defaultExport)) {
+            allExports.add(defaultExport)
+        }
+
+        if (allExports.isEmpty()) {
             Messages.showInfoMessage(project, "No named exports found in ${virtualFile.name}", "No Exports Found")
             return
         }
@@ -62,9 +70,18 @@ class CreateTestFileAction : AnAction() {
             else -> "import { describe, it, expect } from 'jest'" // default to jest
         }
 
-        val importLine = "import { ${exports.joinToString(", ")} } from './$baseName'"
+        val named = allExports.filterNot { it == defaultExport }
+        val namedImportPart = if (named.isNotEmpty()) "{ ${named.joinToString(", ")} }" else ""
+        val defaultImportPart = defaultExport ?: ""
 
-        val testBlocks = exports.joinToString("\n\n") { name ->
+        val importLine = when {
+            namedImportPart.isNotEmpty() && defaultImportPart.isNotEmpty() -> "import $defaultImportPart, $namedImportPart from './$baseName'"
+            namedImportPart.isNotEmpty() -> "import $namedImportPart from './$baseName'"
+            defaultImportPart.isNotEmpty() -> "import $defaultImportPart from './$baseName'"
+            else -> "" // shouldn't happen
+        }
+
+        val testBlocks = allExports.joinToString("\n\n") { name ->
             listOf(
                 "describe('$name', () => {",
                 "  it('should work', () => {",
@@ -100,7 +117,28 @@ class CreateTestFileAction : AnAction() {
     }
 
     override fun update(e: AnActionEvent) {
-        e.presentation.isEnabledAndVisible = true
+        val presentation = e.presentation
+
+        // Safe short-circuit: only enable on ProjectViewPopup or EditorPopupMenu
+        val place = e.place
+        if (place != "ProjectViewPopup" && place != "EditorPopupMenu") {
+            presentation.isEnabledAndVisible = false
+            return
+        }
+
+        // Use a fast, cache-safe key
+        val virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE)
+        if (
+            virtualFile == null ||
+            virtualFile.isDirectory ||
+            (!virtualFile.name.endsWith(".ts") && !virtualFile.name.endsWith(".js")) ||
+            virtualFile.name.contains(".test.") ||
+            virtualFile.name.contains(".spec.")
+        ) {
+            presentation.isEnabledAndVisible = false
+        } else {
+            presentation.isEnabledAndVisible = true
+        }
     }
 
     private fun detectTestFramework(startDir: VirtualFile): String {
