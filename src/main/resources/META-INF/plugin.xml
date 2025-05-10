@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.morkalork.addJsTest</id>
-    <name>Add JS Test</name>
+    <id>org.morkalork.tstesttoolbox</id>
+    <name>ts-test-toolbox</name>
     <vendor email="magnus@consultant.com" url="https://morkalork.dev">morkalork</vendor>
 
     <description>
@@ -11,8 +11,8 @@
     <depends>com.intellij.modules.platform</depends>
 
     <actions>
-        <action id="AddJsTest" class="com.morkalork.CreateTestFileAction" text="JS/TS Test File"
-                icon="icons/addJsTestIcon.svg"
+        <action id="tstesttoolbox" class="com.morkalork.CreateTestFileAction" text="JS/TS Test File"
+                icon="icons/main-icon.svg"
                 description="Adds a menu option to create a `.test.ts` or `.test.js` file for any selected JS/TS file.
 Detects exports and generates test stubs using jest or vitest.">
             <add-to-group group-id="NewGroup" anchor="last"  />
@@ -20,7 +20,7 @@ Detects exports and generates test stubs using jest or vitest.">
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.morkalork.addjstest.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.morkalork.addjstest.startup.MyProjectActivity" />
+        <toolWindow factoryClass="com.github.morkalork.tstesttoolbox.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <postStartupActivity implementation="com.github.morkalork.tstesttoolbox.startup.MyProjectActivity" />
     </extensions>
 </idea-plugin>

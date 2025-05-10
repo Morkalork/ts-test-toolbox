@@ -1,4 +1,4 @@
-package com.github.morkalork.addjstestjetbrains.startup
+package com.github.morkalork.tstesttoolbox.startup
 
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project

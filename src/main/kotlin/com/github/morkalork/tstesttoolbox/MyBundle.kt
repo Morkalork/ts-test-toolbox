@@ -1,4 +1,4 @@
-package com.github.morkalork.addjstestjetbrains
+package com.github.morkalork.tstesttoolbox
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

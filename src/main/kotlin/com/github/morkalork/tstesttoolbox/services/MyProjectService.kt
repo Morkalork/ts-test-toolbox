@@ -1,9 +1,9 @@
-package com.github.morkalork.addjstestjetbrains.services
+package com.github.morkalork.tstesttoolbox.services
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import com.github.morkalork.addjstestjetbrains.MyBundle
+import com.github.morkalork.tstesttoolbox.MyBundle
 
 @Service(Service.Level.PROJECT)
 class MyProjectService(project: Project) {

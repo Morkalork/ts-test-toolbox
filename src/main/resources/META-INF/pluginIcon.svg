@@ -3,8 +3,7 @@
     <rect x="16" y="8" width="32" height="48" rx="4" ry="4" fill="#fdd835"/>
     <polygon points="48,8 56,16 48,16" fill="#fbc02d"/>
 
-    <text x="21" y="32" font-family="Monospace" font-size="10" fill="#263238" font-weight="bold">JS</text>
-    <text x="21" y="44" font-family="Monospace" font-size="10" fill="#263238" font-weight="bold">TEST</text>
+    <text x="21" y="36" font-family="Monospace" font-size="12" fill="#263238" font-weight="bold">TTT</text>
 
     <circle cx="12" cy="52" r="10" fill="#263238"/>
     <line x1="12" y1="46" x2="12" y2="58" stroke="white" stroke-width="2"/>

@@ -8,12 +8,16 @@ import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
 import java.nio.charset.StandardCharsets
 
 class CreateTestFileAction : AnAction() {
+    init {
+        templatePresentation.icon = IconLoader.getIcon("/icons/main-icon.svg", javaClass)
+    }
 
     override fun getActionUpdateThread(): ActionUpdateThread {
         return ActionUpdateThread.BGT
@@ -99,7 +103,7 @@ class CreateTestFileAction : AnAction() {
             Messages.showInfoMessage(
                 project,
                 "A test file already exists:\n${existingTestFile.path}",
-                "Add JS Test"
+                "ts-test-toolbox"
             )
             return
         }

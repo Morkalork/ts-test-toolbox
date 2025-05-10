@@ -1,4 +1,6 @@
-# Add JS Test
+![TS Test Toolbox](./assets/banner.png)
+
+# ts-test-toolbox
 <!-- Plugin description -->
 Adds a context menu item in WebStorm to generate a `.test.ts` or `.test.js` file for any JS/TS file.
 
