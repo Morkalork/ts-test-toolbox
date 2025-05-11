@@ -9,13 +9,26 @@
     </description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
 
     <actions>
-        <action id="tstesttoolbox" class="com.morkalork.CreateTestFileAction" text="JS/TS Test File"
+        <action id="createTestFile" class="com.morkalork.CreateTestFileAction" text="JS/TS Test File"
                 icon="icons/main-icon.svg"
                 description="Adds a menu option to create a `.test.ts` or `.test.js` file for any selected JS/TS file.
 Detects exports and generates test stubs using jest or vitest.">
             <add-to-group group-id="NewGroup" anchor="last"  />
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
+            <add-to-group group-id="MainMenu" anchor="last"/>
+        </action>
+        <action id="CreateStoryFileAction"
+                class="com.morkalork.CreateStoryFileAction"
+                text="TSX/JSX Story File"
+                icon="icons/main-icon.svg"
+                description="Creates a Storybook story file for a selected component.">
+            <add-to-group group-id="NewGroup" anchor="last"  />
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
 

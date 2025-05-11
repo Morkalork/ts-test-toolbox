@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [0.1.0] - 2025-05-10
+
+### Added
+
+- Storybook file context menu action
+
+### Improved
+
+- Icons improvement
+
 ## [0.0.2] - 2025-05-10
 
 ### Improved

@@ -15,9 +15,6 @@ import com.intellij.psi.PsiManager
 import java.nio.charset.StandardCharsets
 
 class CreateTestFileAction : AnAction() {
-    init {
-        templatePresentation.icon = IconLoader.getIcon("/icons/main-icon.svg", javaClass)
-    }
 
     override fun getActionUpdateThread(): ActionUpdateThread {
         return ActionUpdateThread.BGT
@@ -122,13 +119,6 @@ class CreateTestFileAction : AnAction() {
 
     override fun update(e: AnActionEvent) {
         val presentation = e.presentation
-
-        // Safe short-circuit: only enable on ProjectViewPopup or EditorPopupMenu
-        val place = e.place
-        if (place != "ProjectViewPopup" && place != "EditorPopupMenu") {
-            presentation.isEnabledAndVisible = false
-            return
-        }
 
         // Use a fast, cache-safe key
         val virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE)

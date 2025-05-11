@@ -2,7 +2,9 @@
 
 # ts-test-toolbox
 <!-- Plugin description -->
-Adds a context menu item in WebStorm to generate a `.test.ts` or `.test.js` file for any JS/TS file.
+**Unit tests:** Adds a context menu item in WebStorm to generate a `.test.ts` or `.test.js` file for any JS/TS file.
+
+**Storybook:** Adds a context menu item in WebStorm to generate a `.stories.ts` or `.stories.js` file for any JSX/TSX file.
 
 ## Features
 
