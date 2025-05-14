@@ -1,7 +1,9 @@
-![TS Test Toolbox](./assets/banner.png)
+![TS Test Toolbox](src/main/resources/META-INF/pluginImages/banner.png)
+
+<!-- Plugin description -->
 
 # ts-test-toolbox
-<!-- Plugin description -->
+
 **Unit tests:** Adds a context menu item in WebStorm to generate a `.test.ts` or `.test.js` file for any JS/TS file.
 
 **Storybook:** Adds a context menu item in WebStorm to generate a `.stories.ts` or `.stories.js` file for any JSX/TSX file.
@@ -47,3 +49,5 @@ describe('getAge', () => {
 })
 ```
 <!-- Plugin description end -->
+
+![TS Test Toolbox](src/main/resources/META-INF/pluginImages/examples.gif)

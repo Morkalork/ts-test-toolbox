@@ -87,7 +87,7 @@ class CreateTestFileAction : AnAction() {
                 "describe('$name', () => {",
                 "  it('should work', () => {",
                 "    const result = $name()",
-                "    // expect(result).to...",
+                "    expect(result).not.toBeNull()",
                 "  })",
                 "})"
             ).joinToString("\n")

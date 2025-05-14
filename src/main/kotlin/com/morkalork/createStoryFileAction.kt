@@ -45,7 +45,7 @@ class CreateStoryFileAction : AnAction() {
         val componentName = baseName.replaceFirstChar { it.uppercaseChar() }
         val content = """
         import { $componentName } from "./$baseName";
-        import { StoryObj } from "@storybook/react";
+        import type { StoryObj } from "@storybook/react";
 
         export default {
           title: "components/$baseName",
