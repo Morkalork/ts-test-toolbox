@@ -10,6 +10,34 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
 
+
+/**
+ * Converts a string to PascalCase regardless of its original format.
+ * Handles kebab-case, snake_case, camelCase, and space-separated strings.
+ *
+ * @param input The string to convert to PascalCase
+ * @return The PascalCase converted string
+ */
+fun toPascalCase(input: String): String {
+    if (input.isEmpty()) return input
+
+    // Split by common delimiters (hyphen, underscore, space) and remove empty parts
+    val parts = input.split(Regex("[-_\\s]+"))
+        .filter { it.isNotEmpty() }
+
+    // Handle camelCase - split by uppercase letters preceded by lowercase letters
+    val allParts = mutableListOf<String>()
+    for (part in parts) {
+        // Split on camelCase boundaries (lowercase followed by uppercase)
+        val camelParts = part.split(Regex("(?<=[a-z])(?=[A-Z])"))
+            .filter { it.isNotEmpty() }
+        allParts.addAll(camelParts)
+    }
+
+    // Capitalize the first letter of each part and join them
+    return allParts.joinToString("") { it.lowercase().replaceFirstChar { c -> c.uppercase() } }
+}
+
 class CreateStoryFileAction : AnAction() {
     override fun getActionUpdateThread(): ActionUpdateThread {
         return ActionUpdateThread.BGT
@@ -36,21 +64,22 @@ class CreateStoryFileAction : AnAction() {
         val storyFileName = "$baseName.stories.$fileExtension"
         val parent = virtualFile.parent ?: return
 
+        val componentName = toPascalCase(baseName);
         val existingFile = parent.findChild(storyFileName)
         if (existingFile != null) {
             Messages.showInfoMessage(project, "A story file already exists:\n${existingFile.path}", "Story Exists")
             return
         }
 
-        val componentName = baseName.replaceFirstChar { it.uppercaseChar() }
         val content = """
+        import { Meta, StoryObj } from "@storybook/react";
         import { $componentName } from "./$baseName";
         import type { StoryObj } from "@storybook/react";
 
         export default {
           title: "components/$baseName",
           component: $componentName,
-        };
+        } satisfies Meta<typeof $componentName>;
 
         type Story = StoryObj<typeof $componentName>;
 
